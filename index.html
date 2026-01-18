@@ -166,16 +166,39 @@ header,.section,.card{
   opacity:.08;
   pointer-events:none;
 }
+/* === HEADER CON LOGO === */
+.header{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
 
+.header-logo{
+  border-radius:14px;
+  background:#00000055;
+  padding:8px;
+}
+
+.header-text h1{
+  margin:0;
+}
+
+.subtitle{
+  color:var(--muted);
+  font-size:14px;
+}
 </style>
 </head>
 
 <body>
 <div class="wrap">
 
-<header>
-  <h1 id="businessName">Catálogo</h1>
-  <div style="color:var(--muted)">Streaming • IA • Software</div>
+<header class="header">
+  <img src="assets/logo.png" alt="AKAZA Logo" class="header-logo">
+  <div class="header-text">
+    <h1 id="businessName">AKAZA SERVICIOS</h1>
+    <div class="subtitle">Streaming • IA • Software</div>
+  </div>
 </header>
 
 <!-- INFO IMPORTANTE -->
