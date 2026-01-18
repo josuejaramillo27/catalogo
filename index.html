@@ -4,415 +4,265 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AKAZA SERVICIOS - Catálogo</title>
+
   <style>
     :root{
       --bg:#0b0b0e;
+      --card:#12121a;
       --muted:#b8b8c6;
       --text:#f4f4fb;
       --border:rgba(255,255,255,.10);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
       --radius:18px;
     }
     *{box-sizing:border-box}
     body{
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% 0%, rgba(32,201,151,.22), transparent 55%),
-                  radial-gradient(900px 500px at 90% 10%, rgba(255,92,122,.18), transparent 60%),
-                  var(--bg);
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
       color:var(--text);
     }
-    .wrap{max-width:1100px; margin:0 auto; padding:24px 16px 76px}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 80px}
     header{
-      display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-      padding:18px 18px; border:1px solid var(--border); border-radius:var(--radius); background: rgba(18,18,26,.72);
-      box-shadow: var(--shadow); backdrop-filter: blur(8px);
+      padding:20px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      margin-bottom:20px;
     }
-    .brand{display:flex; gap:12px; align-items:center;}
-    .brand-badge{
-      width:44px; height:44px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(32,201,151,.85), rgba(255,92,122,.85));
-      box-shadow: 0 10px 25px rgba(32,201,151,.15);
-    }
-    h1{font-size:18px; margin:0}
-    .subtitle{margin:2px 0 0; color:var(--muted); font-size:13px}
-    .controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
-    .pill{
-      border:1px solid var(--border); background: rgba(0,0,0,.25);
-      padding:10px 12px; border-radius:999px; color:var(--text);
-    }
-    .search{min-width:240px; outline:none;}
-    .tabs{display:flex; gap:10px; margin:18px 0 8px; flex-wrap:wrap}
+    h1{margin:0;font-size:22px}
+    .subtitle{color:var(--muted);font-size:13px}
+
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
     .tab{
-      padding:10px 14px; border-radius:999px; border:1px solid var(--border);
-      cursor:pointer; background: rgba(0,0,0,.18); color:var(--muted);
-      user-select:none;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#00000055;
+      color:var(--muted);
+      cursor:pointer;
+      font-size:13px;
     }
-    .tab.active{background: rgba(32,201,151,.16); border-color: rgba(32,201,151,.45); color:var(--text)}
-    .grid{display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:14px; margin-top:12px;}
-    @media (max-width: 900px){ .grid{grid-template-columns: repeat(2, minmax(0, 1fr));} }
-    @media (max-width: 620px){ .grid{grid-template-columns: 1fr;} .search{min-width: 160px} }
+    .tab.active{
+      background:#20c99733;
+      border-color:#20c997;
+      color:#fff;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.grid{grid-template-columns:1fr}}
 
     .card{
-      background: rgba(18,18,26,.78); border:1px solid var(--border);
-      border-radius:var(--radius); box-shadow: var(--shadow);
-      padding:16px; overflow:hidden; position:relative;
-    }
-    .badge{
-      position:absolute; top:12px; right:12px;
-      padding:6px 10px; border-radius:999px; font-size:12px;
-      border:1px solid var(--border); background: rgba(0,0,0,.25); color: var(--muted);
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow:var(--shadow);
     }
 
-    .hero-logo{
-      width:100%;
+    .logo-box{
+      width:120px;
+      height:120px;
+      margin:0 auto 10px;
+      border-radius:22px;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:10px 0 2px;
+      background:#00000055;
     }
-    .hero-logo .logo-box{
-      width:108px; height:108px;
-      border-radius:22px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.22);
-      display:grid; place-items:center;
-      overflow:hidden;
+    .logo-box img{
+      width:80%;
+      height:80%;
+      object-fit:contain;
     }
-    .hero-logo img{width:100%; height:100%; object-fit:contain}
-    .hero-emoji{font-size:42px; line-height:1}
 
     .service-name{
-      margin:10px 0 2px;
-      font-size:17px;
       text-align:center;
       font-weight:800;
-      letter-spacing:.2px;
+      margin-bottom:6px;
     }
-    .service-hint{
+    .hint{
       text-align:center;
-      color:var(--muted);
       font-size:12px;
+      color:var(--muted);
       margin-bottom:10px;
     }
 
-    .plans{margin-top:8px; display:flex; flex-direction:column; gap:8px}
     .plan{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:10px 10px; border-radius:14px; border:1px solid var(--border);
-      background: rgba(0,0,0,.18);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#00000044;
       cursor:pointer;
+      margin-bottom:6px;
     }
-    .plan .meta{display:flex; flex-direction:column; gap:2px}
-    .plan .meta span{font-size:12px; color:var(--muted)}
-    .price{font-weight:800}
+    .price{font-weight:700}
 
     .wa{
-      margin-top:12px; width:100%;
-      border:none; background: rgba(37,211,102,.18); color:var(--text);
-      padding:12px; border-radius:14px; cursor:pointer; font-weight:800;
-      border: 1px solid rgba(37,211,102,.45);
+      margin-top:10px;
+      width:100%;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid #25D366;
+      background:#25D36633;
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
     }
-    .wa:hover{background: rgba(37,211,102,.24)}
-
-    .section{
-      margin-top:18px; padding:16px 16px;
-      border:1px solid var(--border); border-radius:var(--radius); background: rgba(18,18,26,.62);
-    }
-    .section h2{font-size:16px; margin:0 0 10px}
-    .section ul{margin:0; padding-left:18px; color:var(--muted)}
-    .small{font-size:12px; color:var(--muted)}
 
     .float-wa{
-      position:fixed; right:16px; bottom:16px;
-      width:56px; height:56px; border-radius:999px;
-      display:grid; place-items:center;
-      background: rgba(37,211,102,.92); color:#08240f; font-size:24px; font-weight:900;
-      box-shadow: 0 18px 35px rgba(0,0,0,.45);
-      cursor:pointer; border: none;
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      background:#25D366;
+      color:#08240f;
+      font-size:26px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:none;
+      cursor:pointer;
+      box-shadow:0 18px 35px rgba(0,0,0,.45);
     }
-    .float-wa:active{transform: translateY(1px)}
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="brand-badge" aria-hidden="true"></div>
-        <div>
-          <h1 id="businessName">Catálogo</h1>
-          <div class="subtitle">Plataformas streaming, IA y software</div>
-        </div>
-      </div>
+<div class="wrap">
+  <header>
+    <h1 id="businessName">Catálogo</h1>
+    <div class="subtitle">Plataformas streaming, IA y software</div>
+  </header>
 
-      <div class="controls">
-        <input id="search" class="pill search" placeholder="Buscar (Netflix, Spotify...)" />
-      </div>
-    </header>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid" id="grid"></div>
+</div>
 
-    <div class="tabs" id="tabs"></div>
-
-    <div class="grid" id="grid"></div>
-
-    <div class="section">
-      <h2>Información importante</h2>
-      <ul id="infoImportante"></ul>
-      <div class="small">*Tomado del PDF del catálogo.</div>
-    </div>
-
-    <div class="section">
-      <h2>¿Quieres ser distribuidor?</h2>
-      <ul id="distribuidor"></ul>
-      <div class="small">Escríbeme por WhatsApp para más info.</div>
-    </div>
-  </div>
-
-  <button class="float-wa" id="floatWA" title="WhatsApp">✆</button>
+<button class="float-wa" id="floatWA">✆</button>
 
 <script>
-  const EMOJI = {
-    "Streaming": "🎬",
-    "IA": "🤖",
-    "Software": "💻"
-  };
+const EMOJI={Streaming:"🎬",IA:"🤖",Software:"💻"};
 
-  async function loadData(){
-    const res = await fetch("./data.json", {cache:"no-store"});
-    return await res.json();
-  }
-
-  function waLink(number, text){
-    const base = "https://wa.me/" + String(number || "").replace(/\D/g,"");
-    const msg = encodeURIComponent(text || "");
-    return msg ? (base + "?text=" + msg) : base;
-  }
-
-  function formatPrice(currency, price){
-    if(price === null || price === undefined) return "Consultar";
-    return `${currency}${price}`;
-  }
-
-  function buildMessage(tpl, item, plan, priceText){
-    const msg = (tpl || "Hola, quiero pedir: {{service}} - {{plan}} ({{price}}).")
-      .replaceAll("{{service}}", item.service)
-      .replaceAll("{{plan}}", plan.name)
-      .replaceAll("{{price}}", priceText);
-    return msg;
-  }
-
-  function uniqueCategories(catalog){
-    const s = new Set(catalog.map(x => x.category));
-    return ["Todos", ...Array.from(s)];
-  }
-
-  function renderTabs(categories, active, onClick){
-    const tabs = document.getElementById("tabs");
-    tabs.innerHTML = "";
-    categories.forEach(cat => {
-      const b = document.createElement("div");
-      b.className = "tab" + (cat === active ? " active" : "");
-      b.textContent = cat;
-      b.onclick = () => onClick(cat);
-      tabs.appendChild(b);
-    });
-  }
-
-  function renderInfo(listId, items){
-    const ul = document.getElementById(listId);
-    ul.innerHTML = "";
-    (items || []).forEach(t => {
-      const li = document.createElement("li");
-      li.textContent = t;
-      ul.appendChild(li);
-    });
-  }
-
-  function slugForIcon(name){
-  // nombres comunes a "simpleicons"
-  const s = String(name||"").toLowerCase();
-  if (s.includes("prime")) return "amazonprime";
-  if (s.includes("hbo")) return "hbomax";
-  if (s.includes("disney")) return "disneyplus";
-  if (s.includes("apple tv")) return "appletv";
-  if (s.includes("paramount")) return "paramountplus";
-  if (s.includes("vix")) return "vix";
-  if (s.includes("crunchyroll")) return "crunchyroll";
-  if (s.includes("spotify")) return "spotify";
-  if (s.includes("netflix")) return "netflix";
+function slugForIcon(name){
+  const s=(name||"").toLowerCase();
+  if(s.includes("netflix"))return"netflix";
+  if(s.includes("prime"))return"amazonprime";
+  if(s.includes("hbo"))return"hbomax";
+  if(s.includes("disney"))return"disneyplus";
+  if(s.includes("spotify"))return"spotify";
+  if(s.includes("crunchyroll"))return"crunchyroll";
+  if(s.includes("paramount"))return"paramountplus";
+  if(s.includes("apple"))return"appletv";
+  if(s.includes("vix"))return"vix";
   return null;
 }
 
-function makeHeroLogo(item){
-  const wrap = document.createElement("div");
-  wrap.className = "hero-logo";
-
-  const box = document.createElement("div");
-  box.className = "logo-box";
-
-  const icon = slugForIcon(item.service);
-  if(!icon){
-    box.innerHTML = `<div class="hero-emoji">${EMOJI[item.category] || "✨"}</div>`;
-    wrap.appendChild(box);
-    return wrap;
-  }
-
-  const img = document.createElement("img");
-  img.alt = (item.service || "") + " logo";
-  img.loading = "lazy";
-
-  // Simple Icons CDN (SVG)
-  img.src = `https://cdn.simpleicons.org/${icon}/ffffff`;
-
-  img.onerror = () => {
-    box.innerHTML = `<div class="hero-emoji">${EMOJI[item.category] || "✨"}</div>`;
-  };
-
-  box.appendChild(img);
-  wrap.appendChild(box);
-  return wrap;
+async function loadData(){
+  const r=await fetch("./data.json",{cache:"no-store"});
+  return await r.json();
 }
 
-    const wrap = document.createElement("div");
-    wrap.className = "hero-logo";
+function waLink(num,msg){
+  return "https://wa.me/"+num+"?text="+encodeURIComponent(msg);
+}
 
-    const box = document.createElement("div");
-    box.className = "logo-box";
+function render(data){
+  document.getElementById("businessName").textContent=data.business_name;
+  const cats=["Todos",...new Set(data.catalog.map(i=>i.category))];
+  let active="Todos";
 
-    if(item.logo){
-      const img = document.createElement("img");
-      img.src = item.logo;
-      img.alt = item.service + " logo";
-      img.loading = "lazy";
-      img.onerror = () => { box.innerHTML = "<div class='hero-emoji'>✨</div>"; };
-      box.appendChild(img);
-    }else{
-      const e = document.createElement("div");
-      e.className = "hero-emoji";
-      e.textContent = EMOJI[item.category] || "✨";
-      box.appendChild(e);
-    }
-
-    wrap.appendChild(box);
-    return wrap;
+  function drawTabs(){
+    const t=document.getElementById("tabs");
+    t.innerHTML="";
+    cats.forEach(c=>{
+      const b=document.createElement("div");
+      b.className="tab"+(c===active?" active":"");
+      b.textContent=c;
+      b.onclick=()=>{active=c;drawTabs();drawGrid();};
+      t.appendChild(b);
+    });
   }
 
-  function renderGrid(data, activeCat, query){
-    const grid = document.getElementById("grid");
-    grid.innerHTML = "";
+  function drawGrid(){
+    const g=document.getElementById("grid");
+    g.innerHTML="";
+    data.catalog
+      .filter(i=>active==="Todos"||i.category===active)
+      .forEach(item=>{
+        const card=document.createElement("div");
+        card.className="card";
 
-    const q = (query || "").trim().toLowerCase();
+        const box=document.createElement("div");
+        box.className="logo-box";
 
-    const filtered = (data.catalog || []).filter(item => {
-      const matchCat = (activeCat === "Todos") || (item.category === activeCat);
-      const hay = (item.service + " " + item.category + " " + (item.plans||[]).map(p=>p.name).join(" ")).toLowerCase();
-      const matchQ = !q || hay.includes(q);
-      return matchCat && matchQ;
-    });
+        const icon=slugForIcon(item.service);
+        if(icon){
+          const img=document.createElement("img");
+          img.src=`https://cdn.simpleicons.org/${icon}/ffffff`;
+          img.onerror=()=>box.textContent=EMOJI[item.category]||"✨";
+          box.appendChild(img);
+        }else{
+          box.textContent=EMOJI[item.category]||"✨";
+        }
 
-    filtered.forEach(item => {
-      const card = document.createElement("div");
-      card.className = "card";
+        card.appendChild(box);
 
-      const badge = document.createElement("div");
-      badge.className = "badge";
-      badge.textContent = item.category;
-      card.appendChild(badge);
+        const n=document.createElement("div");
+        n.className="service-name";
+        n.textContent=item.service;
+        card.appendChild(n);
 
-      card.appendChild(makeHeroLogo(item));
+        const h=document.createElement("div");
+        h.className="hint";
+        h.textContent="Toca un plan para pedir por WhatsApp";
+        card.appendChild(h);
 
-      const title = document.createElement("div");
-      title.className = "service-name";
-      title.textContent = item.service;
-      card.appendChild(title);
+        item.plans.forEach(p=>{
+          const row=document.createElement("div");
+          row.className="plan";
+          row.innerHTML=`<div>${p.name}</div><div class="price">${p.price?data.currency+p.price:"Consultar"}</div>`;
+          row.onclick=()=>{
+            window.open(
+              waLink(
+                data.whatsapp_number,
+                `Hola, quiero pedir: ${item.service} - ${p.name} (${p.price?data.currency+p.price:"Consultar"})`
+              )
+            );
+          };
+          card.appendChild(row);
+        });
 
-      const hint = document.createElement("div");
-      hint.className = "service-hint";
-      hint.textContent = "Toca un plan para pedir por WhatsApp";
-      card.appendChild(hint);
+        const wa=document.createElement("button");
+        wa.className="wa";
+        wa.textContent="Pedir por WhatsApp";
+        wa.onclick=()=>window.open(waLink(data.whatsapp_number,`Hola, quiero información de ${item.service}`));
+        card.appendChild(wa);
 
-      const plans = document.createElement("div");
-      plans.className = "plans";
-
-      (item.plans || []).forEach(plan => {
-        const row = document.createElement("div");
-        row.className = "plan";
-
-        const meta = document.createElement("div");
-        meta.className = "meta";
-        const name = document.createElement("div");
-        name.textContent = plan.name;
-        const tip = document.createElement("span");
-        tip.textContent = "Pedido por WhatsApp";
-        meta.appendChild(name);
-        meta.appendChild(tip);
-
-        const price = document.createElement("div");
-        price.className = "price";
-        const priceText = formatPrice(data.currency, plan.price);
-        price.textContent = priceText;
-
-        row.appendChild(meta);
-        row.appendChild(price);
-
-        row.onclick = () => {
-          const msg = buildMessage(data.whatsapp_default_message, item, plan, priceText);
-          window.open(waLink(data.whatsapp_number, msg), "_blank");
-        };
-
-        plans.appendChild(row);
+        g.appendChild(card);
       });
-
-      card.appendChild(plans);
-
-      const waBtn = document.createElement("button");
-      waBtn.className = "wa";
-      waBtn.textContent = "Pedir por WhatsApp";
-      waBtn.onclick = () => {
-        const msg = `Hola, quiero información del servicio: ${item.service}`;
-        window.open(waLink(data.whatsapp_number, msg), "_blank");
-      };
-      card.appendChild(waBtn);
-
-      grid.appendChild(card);
-    });
-
-    if(filtered.length === 0){
-      const empty = document.createElement("div");
-      empty.className = "section";
-      empty.innerHTML = "<b>No encontré resultados.</b><br/><span class='small'>Prueba otro nombre o revisa la categoría.</span>";
-      grid.appendChild(empty);
-    }
   }
 
-  (async function init(){
-    const data = await loadData();
+  drawTabs();
+  drawGrid();
 
-    document.getElementById("businessName").textContent = data.business_name || "Catálogo";
+  document.getElementById("floatWA").onclick=()=>{
+    window.open(waLink(data.whatsapp_number,"Hola, quiero hacer un pedido."));
+  };
+}
 
-    const categories = uniqueCategories(data.catalog || []);
-    let activeCat = "Todos";
-    let query = "";
-
-    function onTab(cat){
-      activeCat = cat;
-      renderTabs(categories, activeCat, onTab);
-      renderGrid(data, activeCat, query);
-    }
-
-    renderTabs(categories, activeCat, onTab);
-    renderGrid(data, activeCat, query);
-
-    renderInfo("infoImportante", data.sections?.info_importante || []);
-    renderInfo("distribuidor", data.sections?.distribuidor || []);
-
-    document.getElementById("search").addEventListener("input", (e)=>{
-      query = e.target.value || "";
-      renderGrid(data, activeCat, query);
-    });
-
-    document.getElementById("floatWA").onclick = () => {
-      window.open(waLink(data.whatsapp_number, "Hola, quiero hacer un pedido."), "_blank");
-    };
-  })();
+loadData().then(render);
 </script>
 </body>
 </html>
