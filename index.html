@@ -35,10 +35,13 @@
     .brand{
       display:flex; gap:12px; align-items:center;
     }
-    .logo{
-      width:42px; height:42px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(32,201,151,.85), rgba(255,92,122,.85));
-      box-shadow: 0 10px 25px rgba(32,201,151,.15);
+    .logo-img{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      object-fit:cover;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.20);
     }
     h1{font-size:18px; margin:0}
     .subtitle{margin:2px 0 0; color:var(--muted); font-size:13px}
@@ -150,13 +153,13 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1 id="businessName">Catálogo</h1>
-          <div class="subtitle">Plataformas streaming, IA y software</div>
-        </div>
-      </div>
+<div class="brand">
+  <img src="assets/logo png.png" alt="AKAZA SERVICIOS" class="logo-img">
+  <div>
+    <h1 id="businessName">AKAZA SERVICIOS</h1>
+    <div class="subtitle">Plataformas streaming, IA y software</div>
+  </div>
+</div>
 
       <div class="controls">
         <input id="search" class="pill search" placeholder="Buscar (Netflix, Spotify...)" />
