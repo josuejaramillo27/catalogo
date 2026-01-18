@@ -157,53 +157,14 @@ h1{margin:0;font-size:22px}
 <script>
 const EMOJI={Streaming:"🎬",IA:"🤖",Software:"💻"};
 
-/** convierte "Disney+ Premium" -> "disney-premium" (solo para fallback local) */
-function slugify(name){
+/* Convierte "Disney+ Premium" -> "disney-premium" */
+function normalize(name){
   return String(name||"")
     .toLowerCase()
-    .trim()
-    .replaceAll("+","")
-    .replaceAll("á","a").replaceAll("é","e").replaceAll("í","i").replaceAll("ó","o").replaceAll("ú","u").replaceAll("ñ","n")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/\+/g,"")
     .replace(/[^a-z0-9]+/g,"-")
     .replace(/(^-|-$)/g,"");
-}
-
-/** 1) intentos locales (tus PNGs) por marca */
-function localCandidates(service){
-  const s=(service||"").toLowerCase();
-
-  // usa EXACTAMENTE estos nombres en /assets/
-  if(s.includes("netflix")) return ["assets/netflix.png"];
-  if(s.includes("prime")) return ["assets/primevideo.png","assets/prime-video.png"];
-  if(s.includes("hbo")) return ["assets/hbo.png","assets/hbo-max.png"];
-  if(s.includes("disney")) return ["assets/disney.png","assets/disneyplus.png","assets/disney-plus.png"];
-  if(s.includes("crunchyroll")) return ["assets/crunchyroll.png"];
-  if(s.includes("paramount")) return ["assets/paramount.png","assets/paramountplus.png"];
-  if(s.includes("iptv")) return ["assets/iptv-smarters-pro.png","assets/iptv.png"];
-  if(s.includes("vix")) return ["assets/vix-premium.png","assets/vix.png"];
-  if(s.includes("apple tv")) return ["assets/apple-tv-plus.png","assets/appletv.png"];
-  if(s.includes("spotify")) return ["assets/spotify.png"];
-
-  // fallback genérico por si subes más logos
-  return [`assets/${slugify(service)}.png`];
-}
-
-/** 2) intentos CDN (si no hay local) */
-function cdnCandidates(service){
-  const s=(service||"").toLowerCase();
-
-  if(s.includes("netflix")) return ["netflix"];
-  if(s.includes("hbo")) return ["hbomax","hbo"];
-  if(s.includes("crunchyroll")) return ["crunchyroll"];
-  if(s.includes("paramount")) return ["paramountplus","paramount"];
-  if(s.includes("apple tv")) return ["appletv","appletvplus"];
-  if(s.includes("spotify")) return ["spotify"];
-
-  // estos pueden fallar según el CDN, por eso van como último recurso
-  if(s.includes("disney")) return ["disneyplus","disney"];
-  if(s.includes("prime")) return ["primevideo","amazonprimevideo","amazonprime"];
-
-  return [];
 }
 
 async function loadData(){
@@ -215,42 +176,34 @@ function waLink(num,msg){
   return "https://wa.me/"+num+"?text="+encodeURIComponent(msg);
 }
 
-function renderLogo(box, item){
-  const locals = localCandidates(item.service);
-  const cdns   = cdnCandidates(item.service).map(x=>`https://cdn.simpleicons.org/${x}/ffffff`);
+function renderLogo(box, service, category){
+  const base = normalize(service);
 
-  // Lista final de intentos: primero local, luego CDN
-  const tries = [...locals, ...cdns];
+  const tries = [
+    `assets/${base}.png`,
+    `assets/${base}.jpg`,
+    `https://cdn.simpleicons.org/${base}/ffffff`
+  ];
 
-  // nada que intentar:
-  if(!tries.length){
-    box.textContent = EMOJI[item.category] || "✨";
-    return;
-  }
+  const img=document.createElement("img");
+  let i=0;
 
-  const img = document.createElement("img");
-  img.alt = (item.service||"") + " logo";
-  img.loading = "lazy";
-
-  let i = 0;
-  const tryNext = () => {
-    if(i >= tries.length){
-      box.textContent = EMOJI[item.category] || "✨";
+  const tryNext=()=>{
+    if(i>=tries.length){
+      box.textContent=EMOJI[category]||"✨";
       return;
     }
-    // anti-cache:
-    const src = tries[i];
-    img.src = src + (src.includes("?") ? "&" : "?") + "v=" + Date.now();
+    img.src = tries[i] + "?v=" + Date.now();
     i++;
   };
 
-  img.onerror = tryNext;
+  img.onerror=tryNext;
   box.appendChild(img);
   tryNext();
 }
 
 function render(data){
-  document.getElementById("businessName").textContent = data.business_name || "Catálogo";
+  document.getElementById("businessName").textContent=data.business_name||"Catálogo";
 
   const cats=["Todos",...new Set((data.catalog||[]).map(i=>i.category))];
   let active="Todos";
@@ -279,7 +232,7 @@ function render(data){
 
         const box=document.createElement("div");
         box.className="logo-box";
-        renderLogo(box, item);
+        renderLogo(box,item.service,item.category);
         card.appendChild(box);
 
         const n=document.createElement("div");
@@ -310,7 +263,9 @@ function render(data){
         const wa=document.createElement("button");
         wa.className="wa";
         wa.textContent="Pedir por WhatsApp";
-        wa.onclick=()=>window.open(waLink(data.whatsapp_number,`Hola, quiero información de ${item.service}`));
+        wa.onclick=()=>window.open(
+          waLink(data.whatsapp_number,`Hola, quiero información de ${item.service}`)
+        );
         card.appendChild(wa);
 
         g.appendChild(card);
