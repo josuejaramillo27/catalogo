@@ -365,6 +365,32 @@ function render(data){
     window.open(waLink(data.whatsapp_number,"Hola, quiero hacer un pedido."));
   };
 }
+function renderSections(data){
+  const info = data.sections?.info_importante || [];
+  const dist = data.sections?.distribuidor || [];
+
+  if(info.length){
+    document.getElementById("infoBox").style.display = "block";
+    const ul = document.getElementById("infoList");
+    ul.innerHTML = "";
+    info.forEach(t=>{
+      const li = document.createElement("li");
+      li.textContent = t;
+      ul.appendChild(li);
+    });
+  }
+
+  if(dist.length){
+    document.getElementById("distBox").style.display = "block";
+    const ul = document.getElementById("distList");
+    ul.innerHTML = "";
+    dist.forEach(t=>{
+      const li = document.createElement("li");
+      li.textContent = t;
+      ul.appendChild(li);
+    });
+  }
+}
 
 loadData().then(data=>{
   renderSections(data);   // ✅ arriba y abajo
