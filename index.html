@@ -183,17 +183,17 @@ function localCandidates(service){
   if(s.includes("apple tv")) return ["assets/apple-tv-plus.png"];
   if(s.includes("vix")) return ["assets/vix-premium.png"];
   if(s.includes("iptv")) return ["assets/iptv-smarters.pro.png"];
-  if (s.includes("youtube")) Then Return ["assets/youtube.png"];
-  if (s.includes("movistar tv")) Then Return ["assets/movistar.png"];
-  if (s.includes("chatgpt")) Then Return ["assets/gpt.png"];
-  if (s.includes("gemini")) Then Return ["assets/gemini.png"];
-  if (s.includes("canva")) Then Return ["assets/canva.png"];
-  if (s.includes("capcut")) Then Return ["assets/capcut.png"];
-  if (s.includes("office")) Then Return ["assets/office.png"];
-  if (s.includes("windows")) Then Return ["assets/windows.png"];
-  if (s.includes("eset")) Then Return ["assets/eset.png"];
-  if (s.includes("duolingo")) Then Return ["assets/duolingo.png"];
-  if (s.includes("playstation")) Then Return ["assets/playstation.png"];
+  if(s.includes("youtube")) return ["assets/youtube.png"];
+  if(s.includes("movistar tv")) return ["assets/movistar.png"];
+  if(s.includes("chatgpt")) return ["assets/gpt.png"];
+  if(s.includes("gemini")) return ["assets/gemini.png"];
+  if(s.includes("canva")) return ["assets/canva.png"];
+  if(s.includes("capcut")) return ["assets/capcut.png"];
+  if(s.includes("office")) return ["assets/office.png"];
+  if(s.includes("windows")) return ["assets/windows.png"];
+  if(s.includes("eset")) return ["assets/eset.png"];
+  if(s.includes("duolingo")) return ["assets/duolingo.png"];
+  if(s.includes("playstation")) return ["assets/playstation.png"];
 
   // fallback automático para futuros logos
   return [`assets/${normalize(service)}.png`, `assets/${normalize(service)}.jpg`];
