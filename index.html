@@ -226,7 +226,51 @@
     });
   }
 
-  function makeHeroLogo(item){
+  function slugForIcon(name){
+  // nombres comunes a "simpleicons"
+  const s = String(name||"").toLowerCase();
+  if (s.includes("prime")) return "amazonprime";
+  if (s.includes("hbo")) return "hbomax";
+  if (s.includes("disney")) return "disneyplus";
+  if (s.includes("apple tv")) return "appletv";
+  if (s.includes("paramount")) return "paramountplus";
+  if (s.includes("vix")) return "vix";
+  if (s.includes("crunchyroll")) return "crunchyroll";
+  if (s.includes("spotify")) return "spotify";
+  if (s.includes("netflix")) return "netflix";
+  return null;
+}
+
+function makeHeroLogo(item){
+  const wrap = document.createElement("div");
+  wrap.className = "hero-logo";
+
+  const box = document.createElement("div");
+  box.className = "logo-box";
+
+  const icon = slugForIcon(item.service);
+  if(!icon){
+    box.innerHTML = `<div class="hero-emoji">${EMOJI[item.category] || "✨"}</div>`;
+    wrap.appendChild(box);
+    return wrap;
+  }
+
+  const img = document.createElement("img");
+  img.alt = (item.service || "") + " logo";
+  img.loading = "lazy";
+
+  // Simple Icons CDN (SVG)
+  img.src = `https://cdn.simpleicons.org/${icon}/ffffff`;
+
+  img.onerror = () => {
+    box.innerHTML = `<div class="hero-emoji">${EMOJI[item.category] || "✨"}</div>`;
+  };
+
+  box.appendChild(img);
+  wrap.appendChild(box);
+  return wrap;
+}
+
     const wrap = document.createElement("div");
     wrap.className = "hero-logo";
 
