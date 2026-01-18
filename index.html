@@ -15,6 +15,18 @@
   --shadow:0 10px 30px rgba(0,0,0,.35);
   --radius:18px;
 }
+  .section{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin: 14px 0;
+}
+.section h2{ margin:0 0 10px; font-size:16px; }
+.section ul{ margin:0; padding-left:18px; color: var(--muted); }
+.section .note{ margin-top:10px; font-size:12px; color: var(--muted); }
+
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -158,13 +170,13 @@ h1{margin:0;font-size:22px}
   <div class="tabs" id="tabs"></div>
   <div class="grid" id="grid"></div>
 
-  <!-- ✅ DISTRIBUIDORES (AL FINAL) -->
-  <div class="section" id="distBox" style="display:none;">
-    <h2>¿Quieres ser distribuidor?</h2>
-    <ul id="distList"></ul>
-    <div class="note">Escríbeme por WhatsApp para más info.</div>
-  </div>
+  <!-- DISTRIBUIDORES (AL FINAL) -->
+<div class="section" id="distBox" style="display:none;">
+  <h2>¿Quieres ser distribuidor?</h2>
+  <ul id="distList"></ul>
+  <div class="note">Escríbeme por WhatsApp para más info.</div>
 </div>
+
 
 <button class="float-wa" id="floatWA">✆</button>
 
