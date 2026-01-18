@@ -27,7 +27,7 @@
       "id": "netflix",
       "category": "Streaming",
       "service": "Netflix",
-       "logo": "assets/netflix.png",
+      "logo": "assets/netflix.png",
       "plans": [
         {
           "name": "Perfil personal (1 mes)",
