@@ -68,15 +68,15 @@ header{
 }
 
 .logo-box{
-  width:130px;
-  height:130px;
+  width:140px;
+  height:140px;
   margin:auto;
   margin-bottom:10px;
   display:flex;
   align-items:center;
   justify-content:center;
   background:#00000055;
-  border-radius:22px;
+  border-radius:24px;
 }
 .logo-box img{width:85%;height:85%;object-fit:contain}
 
@@ -151,68 +151,12 @@ header{
 <script>
 const EMOJI={Streaming:"🎬",IA:"🤖",Software:"💻"};
 
-/** convierte "Disney+ Premium" -> "disney-premium" (solo para fallback local) */
-Function slugify(name){
-  Return String(name||"")
-    .toLowerCase()
-    .trim()
-    .replaceAll("+", "")
-    .replaceAll("á", "a").replaceAll("é", "e").replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u").replaceAll("ñ", "n")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/ (^ -|-$)/g,"");
-}
-
-/** 1) intentos locales (tus PNGs) por marca */
-Function localCandidates(service){
-  Const s = (service||"").toLowerCase();
-
-  // usa EXACTAMENTE estos nombres en /assets/
-  If (s.includes("netflix")) Then Return ["assets/netflix.png"];
-  If (s.includes("prime")) Then Return ["assets/primevideo.png","assets/prime-video.png"];
-  If (s.includes("hbo")) Then Return ["assets/hbo.png","assets/hbo-max.png"];
-  If (s.includes("disney")) Then Return ["assets/disney.png","assets/disneyplus.png","assets/disney-plus.png"];
-  If (s.includes("crunchyroll")) Then Return ["assets/crunchyroll.png"];
-  If (s.includes("paramount")) Then Return ["assets/paramount.png","assets/paramountplus.png"];
-  If (s.includes("iptv")) Then Return ["assets/iptv-smarters-pro.png","assets/iptv.png"];
-  If (s.includes("vix")) Then Return ["assets/vix-premium.png","assets/vix.png"];
-  If (s.includes("apple tv")) Then Return ["assets/apple-tv-plus.png","assets/appletv.png"];
-  If (s.includes("spotify")) Then Return ["assets/spotify.png"];
-  If (s.includes("youtube")) Then Return ["assets/youtube.png"];
-  If (s.includes("movistar tv")) Then Return ["assets/movistar.png"];
-  If (s.includes("chatgpt")) Then Return ["assets/gpt.png"];
-  If (s.includes("gemini")) Then Return ["assets/gemini.png"];
-  If (s.includes("canva")) Then Return ["assets/canva.png"];
-  If (s.includes("capcut")) Then Return ["assets/capcut.png"];
-  If (s.includes("office")) Then Return ["assets/office.png"];
-  If (s.includes("windows")) Then Return ["assets/windows.png"];
-  If (s.includes("eset")) Then Return ["assets/eset.png"];
-  If (s.includes("duolingo")) Then Return ["assets/duolingo.png"];
-  If (s.includes("playstation")) Then Return ["assets/playstation.png"];
-
-  // fallback genérico por si subes más logos
-  Return [`assets/${slugify(service)}.png`];
-}
-
-/** 2) intentos CDN (si no hay local) */
-Function cdnCandidates(service){
-  Const s = (service||"").toLowerCase();
-
-  If (s.includes("netflix")) Then Return ["netflix"];
-  If (s.includes("hbo")) Then Return ["hbomax","hbo"];
-  If (s.includes("crunchyroll")) Then Return ["crunchyroll"];
-  If (s.includes("paramount")) Then Return ["paramountplus","paramount"];
-  If (s.includes("apple tv")) Then Return ["appletv","appletvplus"];
-  If (s.includes("spotify")) Then Return ["spotify"];
-    If (s.includes("youtube")) Then Return ["assets/youtube.png"];
-  If (s.includes("movistar tv")) Then Return ["assets/movistar.png"];
-  If (s.includes("chatgpt")) Then Return ["assets/gpt.png"];
-  If (s.includes("gemini")) Then Return ["assets/gemini.png"];
-
-  // estos pueden fallar según el CDN, por eso van como último recurso
-  If (s.includes("disney")) Then Return ["disneyplus","disney"];
-  If (s.includes("prime")) Then Return ["primevideo","amazonprimevideo","amazonprime"];
-
-  Return [];
+function normalize(s){
+  return String(s||"").toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/\+/g,"")
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/(^-|-$)/g,"");
 }
 
 function wa(num,msg){
@@ -224,23 +168,51 @@ async function loadData(){
   return await r.json();
 }
 
+/* ================= LOGOS ================= */
+
+function localCandidates(service){
+  const s=(service||"").toLowerCase();
+
+  if(s.includes("netflix")) return ["assets/netflix.png"];
+  if(s.includes("prime")) return ["assets/primevideo.png"];
+  if(s.includes("hbo")) return ["assets/hbo.png"];
+  if(s.includes("disney")) return ["assets/disney.png"];
+  if(s.includes("crunchyroll")) return ["assets/crunchyroll.png"];
+  if(s.includes("paramount")) return ["assets/paramount.png"];
+  if(s.includes("spotify")) return ["assets/spotify.png"];
+  if(s.includes("apple tv")) return ["assets/apple-tv+.png","assets/appletv.png"];
+  if(s.includes("vix")) return ["assets/vix.png"];
+  if(s.includes("iptv")) return ["assets/iptv.png"];
+
+  // fallback automático para futuros logos
+  return [`assets/${normalize(service)}.png`, `assets/${normalize(service)}.jpg`];
+}
+
 function renderLogo(box, service, category){
-  const base=normalize(service);
   const tries=[
-    `assets/${base}.png`,
-    `assets/${base}.jpg`,
-    `https://cdn.simpleicons.org/${base}/ffffff`
+    ...localCandidates(service),
+    `https://cdn.simpleicons.org/${normalize(service)}/ffffff`
   ];
+
   const img=document.createElement("img");
   let i=0;
-  img.onerror=()=>{
+
+  const tryNext=()=>{
+    if(i>=tries.length){
+      box.textContent=EMOJI[category]||"✨";
+      return;
+    }
+    const src=tries[i];
+    img.src=src+(src.includes("?")?"&":"?")+"v="+Date.now();
     i++;
-    if(i<tries.length) img.src=tries[i];
-    else box.textContent=EMOJI[category]||"✨";
   };
-  img.src=tries[0];
+
+  img.onerror=tryNext;
   box.appendChild(img);
+  tryNext();
 }
+
+/* ================= SECCIONES ================= */
 
 function renderSections(data){
   if(data.sections?.info_importante?.length){
@@ -262,6 +234,8 @@ function renderSections(data){
     });
   }
 }
+
+/* ================= CATÁLOGO ================= */
 
 function render(data){
   businessName.textContent=data.business_name||"Catálogo";
