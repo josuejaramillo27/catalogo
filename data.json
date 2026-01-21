@@ -3,6 +3,14 @@
   "currency": "S/",
   "whatsapp_number": "51961341323",
   "whatsapp_default_message": "Hola, quiero pedir: {{service}} - {{plan}} ({{price}}).",
+  "whatsapp_channel_url": "https://whatsapp.com/channel/0029VbCE4NeL7UVWByPUl446",
+"whatsapp_channel_items": [
+  "📢 Únete a nuestro canal oficial de WhatsApp (Clientes)",
+  "🎁 Sorteos exclusivos todos los fines de mes",
+  "🔥 Promociones y descuentos solo para miembros",
+  "⚡ Avisos anticipados de nuevos servicios",
+  "👑 Beneficios VIP para clientes frecuentes"
+],
   "sections": {
     "info_importante": [
       "Mi servicio tiene garantía por el tiempo contratado; en caso de fallos, la solución se dará de inmediato hasta 24 horas. Pasado ese lapso podrás reclamar reembolso.",
