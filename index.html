@@ -394,68 +394,6 @@ header > *{
   0%,100%{ transform:translateY(0); }
   50%{ transform:translateY(-6px); }
 }
-/* === FORZAR 2 COLUMNAS SOLO EN DISTRIBUIDOR === */
-#distBox{
-  display:grid !important;
-  grid-template-columns: 1fr 240px !important;
-  gap:24px !important;
-  align-items:start !important;
-}
-
-#distBox .dist-right{
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-}
-
-#distBox .dist-right img{
-  width:220px;
-  max-width:100%;
-  height:auto;
-  opacity:.95;
-  filter: drop-shadow(0 0 25px rgba(181,23,255,.35));
-}
-
-/* Responsive */
-@media(max-width:800px){
-  #distBox{
-    grid-template-columns: 1fr !important;
-  }
-  #distBox .dist-right{
-    justify-content:flex-start;
-  }
-  #distBox .dist-right img{
-    width:180px;
-  }
-}
-/* === CANAL WHATSAPP CLIENTES === */
-#canalBox{
-  border:1px solid rgba(76,201,240,.35);
-  box-shadow:
-    0 0 25px rgba(76,201,240,.15),
-    inset 0 0 30px rgba(181,23,255,.05);
-}
-
-.canal-btn{
-  display:inline-block;
-  margin-top:14px;
-  padding:14px 22px;
-  border-radius:16px;
-  font-weight:800;
-  text-decoration:none;
-  color:#fff;
-  background:linear-gradient(
-    135deg,
-    rgba(37,211,102,.9),
-    rgba(18,140,126,.9)
-  );
-  box-shadow:0 0 20px rgba(37,211,102,.45);
-}
-
-.canal-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 30px rgba(37,211,102,.65);
-}
 
 </style>
 </head>
@@ -516,16 +454,6 @@ header > *{
   </div>
 </div>
 
-<div class="section" id="canalBox">
-  <h2>Canal exclusivo de clientes</h2>
-  <ul id="canalList"></ul>
-
-  <a class="wa canal-btn" 
-     href="https://whatsapp.com/channel/0029VbCE4NeL7UVWByPUl446" 
-     target="_blank">
-    📲 Unirme al canal
-  </a>
-</div>
 
 <div class="float-wa" id="floatWA">✆</div>
 
@@ -545,16 +473,9 @@ function wa(num,msg){
 }
 
 async function loadData(){
-  const r = await fetch("./data.json", { cache:"no-store" });
-
-  if(!r.ok){
-    throw new Error("No se pudo cargar data.json (HTTP " + r.status + "). Revisa que exista en la MISMA carpeta que index.html");
-  }
-
-  const data = await r.json();
-  return data;
+  const r=await fetch("./data.json",{cache:"no-store"});
+  return await r.json();
 }
-
 
 /* ================= LOGOS ================= */
 
@@ -638,26 +559,15 @@ function renderSections(data){
 
 function render(data){
   businessName.textContent=data.business_name||"Catálogo";
-  const catalog = Array.isArray(data.catalog) ? data.catalog : [];
-const cats = ["Todos", ...new Set(catalog.map(i => i.category))];
+  const cats=["Todos",...new Set(data.catalog.map(i=>i.category))];
   let active="Todos";
   let q = "";
 
 const searchInput = document.getElementById("searchInput");
-if (searchInput){
+if(searchInput){
   searchInput.addEventListener("input", (e)=>{
     q = (e.target.value || "").toLowerCase().trim();
     drawGrid();
-  });
-}
-// Render del canal (se ejecuta 1 vez al cargar)
-if (data.canal_whatsapp?.length){
-  const ul = document.getElementById("canalList");
-  ul.innerHTML = "";
-  data.canal_whatsapp.forEach(t=>{
-    const li = document.createElement("li");
-    li.textContent = t;
-    ul.appendChild(li);
   });
 }
 
@@ -674,14 +584,7 @@ if (data.canal_whatsapp?.length){
 
   function drawGrid(){
     grid.innerHTML="";
-    if(!catalog.length){
-  grid.innerHTML = `<div style="grid-column:1/-1;opacity:.8">
-    No hay productos. Revisa que <b>data.json</b> tenga la clave <b>"catalog"</b> y que no esté vacío.
-  </div>`;
-  return;
-}
-
-catalog
+data.catalog
   .filter(i=>{
     const okCat = (active==="Todos" || i.category===active);
     const okQ   = (!q || (i.service||"").toLowerCase().includes(q));
