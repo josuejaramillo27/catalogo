@@ -428,6 +428,34 @@ header > *{
     width:180px;
   }
 }
+/* === CANAL WHATSAPP CLIENTES === */
+#canalBox{
+  border:1px solid rgba(76,201,240,.35);
+  box-shadow:
+    0 0 25px rgba(76,201,240,.15),
+    inset 0 0 30px rgba(181,23,255,.05);
+}
+
+.canal-btn{
+  display:inline-block;
+  margin-top:14px;
+  padding:14px 22px;
+  border-radius:16px;
+  font-weight:800;
+  text-decoration:none;
+  color:#fff;
+  background:linear-gradient(
+    135deg,
+    rgba(37,211,102,.9),
+    rgba(18,140,126,.9)
+  );
+  box-shadow:0 0 20px rgba(37,211,102,.45);
+}
+
+.canal-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 30px rgba(37,211,102,.65);
+}
 
 </style>
 </head>
@@ -488,6 +516,16 @@ header > *{
   </div>
 </div>
 
+<div class="section" id="canalBox">
+  <h2>Canal exclusivo de clientes</h2>
+  <ul id="canalList"></ul>
+
+  <a class="wa canal-btn" 
+     href="https://whatsapp.com/channel/https://whatsapp.com/channel/0029VbCE4NeL7UVWByPUl446" 
+     target="_blank">
+    📲 Unirme al canal
+  </a>
+</div>
 
 <div class="float-wa" id="floatWA">✆</div>
 
