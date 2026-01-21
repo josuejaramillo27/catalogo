@@ -346,54 +346,6 @@ header > *{
     0 0 12px rgba(76,201,240,.45),
     0 0 22px rgba(181,23,255,.35);
 }
-/* === MÁS ESPACIO ENTRE LÍNEAS (INFO + DISTRIBUIDOR) === */
-.section ul li{
-  margin-bottom: 12px;   /* prueba 10–16px */
-  line-height: 1.6;      /* mejora lectura */
-}
-/* === DISTRIBUIDOR CON IMAGEN (GRID) === */
-.dist{
-  display:grid;
-  grid-template-columns: 1fr 240px; /* texto | imagen */
-  gap:24px;
-  align-items:start;
-}
-
-.dist-left{
-  min-width: 0;
-}
-
-.dist-right{
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-}
-
-.dist-right img{
-  width:220px;
-  max-width:100%;
-  height:auto;
-  opacity:.95;
-  filter: drop-shadow(0 0 25px rgba(181,23,255,.35));
-}
-
-/* Responsive */
-@media(max-width:800px){
-  .dist{
-    grid-template-columns: 1fr; /* se apila */
-  }
-  .dist-right{
-    justify-content:flex-start;
-  }
-  .dist-right img{
-    width:180px;
-  }
-}
-
-@keyframes floatAkaza{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-6px); }
-}
 
 </style>
 </head>
@@ -443,17 +395,12 @@ header > *{
 <div class="grid" id="grid"></div>
 
 <!-- DISTRIBUIDORES -->
-<div class="section dist" id="distBox" style="display:none">
-  <div class="dist-left">
-    <h2>¿Quieres ser distribuidor?</h2>
-    <ul id="distList"></ul>
-  </div>
-
-  <div class="dist-right">
-    <img src="assets/akazaxd.png" alt="Distribuidor AKAZA">
-  </div>
+<div class="section" id="distBox" style="display:none">
+  <h2>¿Quieres ser distribuidor?</h2>
+  <ul id="distList"></ul>
 </div>
 
+</div>
 
 <div class="float-wa" id="floatWA">✆</div>
 
