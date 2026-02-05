@@ -35,14 +35,14 @@
       "service": "Netflix",
       "category": "Streaming",
       "plans": [
-        { "name": "Perfil personal (1 mes)", "price": 15 }
+        { "name": "Perfil personal (1 mes)", "price": 16 }
       ]
     },
     {
       "service": "Prime Video",
       "category": "Streaming",
       "plans": [
-        { "name": "Perfil personal (1 mes)", "price": 9 }
+        { "name": "Perfil personal (1 mes)", "price": 10 }
       ]
     },
     {
@@ -64,7 +64,7 @@
       "service": "Crunchyroll Premium",
       "category": "Streaming",
       "plans": [
-        { "name": "Perfil personal (1 mes)", "price": 8 }
+        { "name": "Perfil personal (1 mes)", "price": 9 }
       ]
     },
     {
