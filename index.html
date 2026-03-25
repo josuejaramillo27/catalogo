@@ -24,9 +24,15 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:system-ui,Segoe UI,Roboto,Arial;
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   background:var(--bg);
   color:var(--text);
+}
+  button,
+input,
+textarea,
+select{
+  font-family:inherit;
 }
 .wrap{max-width:1100px;margin:auto;padding:20px}
 
@@ -88,7 +94,7 @@ header{
 }
 .logo-box img{width:85%;height:85%;object-fit:contain}
 
-.service-name{text-align:center;font-weight:800;margin-bottom:6px}
+.service-name{text-align:center;font-weight:600;margin-bottom:6px;letter-spacing:-0.01em}
 .plan{
   display:flex;
   justify-content:space-between;
@@ -98,7 +104,7 @@ header{
   border-radius:12px;
   cursor:pointer;
 }
-.price{font-weight:700}
+.price{font-weight:600;letter-spacing:-0.01em}
 
 .wa{
   margin-top:10px;
@@ -112,7 +118,8 @@ header{
     rgba(181,23,255,.35)
   );
   color:#fff;
-  font-weight:800;
+  font-weight:600;
+letter-spacing:-0.01em;
   cursor:pointer;
   transition:transform .15s ease, box-shadow .15s ease;
 }
