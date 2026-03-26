@@ -31,11 +31,29 @@ html{
 body{
   margin:0;
   font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-  background:var(--bg);
   color:var(--text);
   overflow-x:hidden;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(76,201,240,.10), transparent 22%),
+    radial-gradient(circle at 85% 18%, rgba(181,23,255,.12), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(255,78,205,.08), transparent 26%),
+    linear-gradient(180deg, #111214 0%, #090909 55%, #000000 100%);
+  background-attachment: fixed;
 }
-
+body::before{
+  content:"";
+  position:fixed;
+  inset:-10%;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(76,201,240,.12), transparent 22%),
+    radial-gradient(circle at 80% 25%, rgba(181,23,255,.14), transparent 24%),
+    radial-gradient(circle at 50% 85%, rgba(255,78,205,.08), transparent 22%);
+  filter:blur(30px);
+  transform:translateY(var(--bg-shift, 0px));
+  will-change:transform;
+}
 h1,h2,h3{
   letter-spacing:-0.02em;
 }
@@ -45,30 +63,6 @@ input,
 textarea,
 select{
   font-family:inherit;
-}
-
-.bg-motion{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    radial-gradient(900px 600px at 10% 0%, rgba(76,201,240,.16), transparent 60%),
-    radial-gradient(800px 600px at 90% 10%, rgba(181,23,255,.18), transparent 55%),
-    radial-gradient(900px 700px at 50% 120%, rgba(255,78,205,.10), transparent 60%),
-    linear-gradient(180deg, #111214 0%, #090909 55%, #000000 100%);
-  transform:translateY(0);
-  will-change:transform;
-}
-
-.bg-motion::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(255,255,255,.05), transparent 24%),
-    radial-gradient(circle at 80% 22%, rgba(10,132,255,.10), transparent 28%),
-    radial-gradient(circle at 50% 100%, rgba(255,255,255,.04), transparent 30%);
-  pointer-events:none;
 }
 
 .wrap{
@@ -536,7 +530,6 @@ header > *{
 </head>
 
 <body>
-<div class="bg-motion"></div>
 
 <div class="wrap">
 
@@ -840,12 +833,15 @@ function initFadeIn(){
   });
 }
 
-window.addEventListener("scroll", ()=>{
-  const scrollY=window.scrollY;
-  const bg=document.querySelector(".bg-motion");
-  if(bg){
-    bg.style.transform=`translateY(${scrollY * 0.12}px)`;
-  }
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  document.body.style.backgroundPosition =
+    `0 ${scrollY * 0.08}px, 0 ${scrollY * 0.04}px, 0 ${scrollY * 0.12}px, 0 0`;
+  
+  document.documentElement.style.setProperty(
+    '--bg-shift',
+    `${scrollY * 0.06}px`
+  );
 });
 
 loadData().then(data=>{
