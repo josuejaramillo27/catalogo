@@ -13,162 +13,63 @@
   --muted:#86868b;
   --primary:#0a84ff;
   --border:rgba(255,255,255,.10);
-
-  /* Aura Akaza */
-  --akaza-blue:#4cc9f0;
-  --akaza-purple:#b517ff;
-  --akaza-pink:#ff4ecd;
-
   --radius:18px;
 }
 
 *{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
-
 body{
   margin:0;
   font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-  background:var(--bg);
   color:var(--text);
   overflow-x:hidden;
+
+  background:
+    radial-gradient(circle at 15% 10%, rgba(76,201,240,.10), transparent 22%),
+    radial-gradient(circle at 85% 18%, rgba(181,23,255,.12), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(255,78,205,.08), transparent 26%),
+    linear-gradient(180deg, #111214 0%, #090909 55%, #000000 100%);
+
+  background-attachment: fixed;
+}
+
+/* iluminación dinámica */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-10%;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(76,201,240,.12), transparent 22%),
+    radial-gradient(circle at 80% 25%, rgba(181,23,255,.14), transparent 24%),
+    radial-gradient(circle at 50% 85%, rgba(255,78,205,.08), transparent 22%);
+  filter:blur(30px);
+  transform:translateY(var(--bg-shift, 0px));
+  will-change:transform;
 }
 
 h1,h2,h3{
   letter-spacing:-0.02em;
 }
 
-button,
-input,
-textarea,
-select{
-  font-family:inherit;
-}
-
-.bg-motion{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    radial-gradient(900px 600px at 10% 0%, rgba(76,201,240,.16), transparent 60%),
-    radial-gradient(800px 600px at 90% 10%, rgba(181,23,255,.18), transparent 55%),
-    radial-gradient(900px 700px at 50% 120%, rgba(255,78,205,.10), transparent 60%),
-    linear-gradient(180deg, #111214 0%, #090909 55%, #000000 100%);
-  transform:translateY(0);
-  will-change:transform;
-}
-
-.bg-motion::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(255,255,255,.05), transparent 24%),
-    radial-gradient(circle at 80% 22%, rgba(10,132,255,.10), transparent 28%),
-    radial-gradient(circle at 50% 100%, rgba(255,255,255,.04), transparent 30%);
-  pointer-events:none;
-}
-
 .wrap{
   max-width:1100px;
   margin:auto;
   padding:20px;
-  position:relative;
-  z-index:1;
 }
 
+/* HEADER */
 header{
-  position:relative;
-  overflow:hidden;
-  background:rgba(22,22,23,.68);
+  background:rgba(22,22,23,.7);
   border:1px solid var(--border);
   border-radius:var(--radius);
   padding:20px;
-  margin-bottom:14px;
+  margin-bottom:20px;
   backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
 }
 
-header::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:url("https://media.tenor.com/b5u-bo_LuPcAAAAM/akaza-demon-slayer.gif") center/cover no-repeat;
-  opacity:.15;
-  filter:blur(2px) saturate(120%);
-  z-index:0;
-}
-
-header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg, rgba(6,7,15,.84), rgba(6,7,15,.54));
-  z-index:1;
-}
-
-header > *{
-  position:relative;
-  z-index:2;
-}
-
-.section{
-  background:rgba(22,22,23,.62);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:16px;
-  margin:22px 0;
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-}
-
-.section h2{
-  margin:0 0 10px;
-}
-
-.section ul{
-  margin:0;
-  padding-left:18px;
-  color:var(--muted);
-}
-
-.section ul li{
-  margin-bottom:12px;
-  line-height:1.6;
-}
-
-.tabs{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:14px;
-}
-
-.tab{
-  padding:8px 14px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  cursor:pointer;
-  font-size:13px;
-  color:var(--muted);
-  background:rgba(255,255,255,.02);
-  transition:all .25s ease;
-}
-
-.tab:hover{
-  color:#fff;
-  border-color:rgba(255,255,255,.2);
-  transform:translateY(-1px);
-}
-
-.tab.active{
-  background:#25d36633;
-  color:#fff;
-  border-color:#25d366;
-}
-
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -183,21 +84,23 @@ header > *{
   .grid{grid-template-columns:1fr}
 }
 
+/* CARDS */
 .card{
   position:relative;
   overflow:hidden;
-  background:linear-gradient(145deg, rgba(28,28,30,.92), rgba(17,17,19,.96));
+  background:linear-gradient(145deg, rgba(28,28,30,.95), rgba(17,17,19,.98));
   border-radius:18px;
   padding:16px;
   border:1px solid rgba(255,255,255,.06);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
+
   box-shadow:
     0 10px 30px rgba(0,0,0,.55),
     inset 0 1px 0 rgba(255,255,255,.04);
-  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+
+  transition:all .3s ease;
 }
 
+/* luz interna */
 .card::before{
   content:"";
   position:absolute;
@@ -205,11 +108,11 @@ header > *{
   height:220px;
   top:-70px;
   left:-70px;
-  background:radial-gradient(circle, rgba(10,132,255,.14) 0%, rgba(181,23,255,.08) 34%, transparent 72%);
-  filter:blur(34px);
-  pointer-events:none;
+  background:radial-gradient(circle, rgba(10,132,255,.14), transparent 70%);
+  filter:blur(35px);
 }
 
+/* glow inferior */
 .card::after{
   content:"";
   position:absolute;
@@ -220,653 +123,74 @@ header > *{
   background:radial-gradient(ellipse at center, rgba(10,132,255,.18), transparent 70%);
   filter:blur(22px);
   z-index:-1;
-  pointer-events:none;
 }
 
 .card:hover{
   transform:translateY(-6px) scale(1.01);
-  border-color:rgba(181,23,255,.45);
   box-shadow:
-    0 22px 45px rgba(0,0,0,.78),
-    0 0 20px rgba(181,23,255,.18),
-    0 0 40px rgba(76,201,240,.10),
-    inset 0 1px 0 rgba(255,255,255,.06);
+    0 22px 45px rgba(0,0,0,.8),
+    0 0 25px rgba(10,132,255,.2);
 }
 
-.logo-box{
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
-  width:160px;
-  height:160px;
-  margin:auto;
-  margin-bottom:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,.28);
-  border-radius:24px;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-
-.logo-box img{
-  width:85%;
-  height:85%;
-  object-fit:contain;
-}
-
-.service-name{
-  text-align:center;
-  font-weight:600;
-  margin-bottom:6px;
-  letter-spacing:-0.01em;
-}
-
-.plan{
-  display:flex;
-  justify-content:space-between;
-  padding:10px;
-  margin-bottom:6px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  cursor:pointer;
-  background:rgba(255,255,255,.02);
-  transition:all .25s ease;
-}
-
-.plan:hover{
-  border-color:rgba(255,255,255,.18);
-  background:rgba(255,255,255,.04);
-}
-
-.price{
-  font-weight:600;
-  letter-spacing:-0.01em;
-}
-
+/* BOTÓN */
 .wa{
   width:100%;
-  margin-top:8px;
-  background:linear-gradient(180deg, #0a84ff, #0066cc);
+  margin-top:10px;
+  background:linear-gradient(180deg,#0a84ff,#0066cc);
   color:#fff;
   border:none;
   border-radius:12px;
   padding:12px;
   font-weight:600;
-  letter-spacing:-0.01em;
-  box-shadow:0 4px 12px rgba(10,132,255,.4);
   cursor:pointer;
-  transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  transition:all .3s ease;
 }
 
 .wa:hover{
   transform:scale(1.03);
   box-shadow:0 6px 18px rgba(10,132,255,.6);
-  filter:brightness(1.03);
 }
 
-.float-wa{
-  position:fixed;
-  right:16px;
-  bottom:16px;
-  width:56px;
-  height:56px;
-  border-radius:50%;
-  background:#25d366;
-  font-size:26px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  box-shadow:0 10px 25px rgba(0,0,0,.35);
-  z-index:30;
-  transition:transform .25s ease, box-shadow .25s ease;
-}
-
-.float-wa:hover{
-  transform:translateY(-3px) scale(1.04);
-  box-shadow:0 14px 32px rgba(0,0,0,.45);
-}
-
-/* Header */
-.header{
-  display:flex;
-  align-items:center;
-  gap:18px;
-}
-
-.header-logo{
-  width:150px;
-  height:150px;
-  object-fit:contain;
-}
-
-.header-text{
-  flex:1;
-}
-
-.header-text h1{
-  margin:0;
-}
-
-.subtitle{
-  color:var(--muted);
-  font-size:14px;
-}
-
-#businessName{
-  text-shadow:
-    0 0 12px rgba(76,201,240,.35),
-    0 0 22px rgba(181,23,255,.25);
-}
-
-.header-search{
-  min-width:240px;
-  max-width:360px;
-  width:35%;
-}
-
-#searchInput{
-  width:100%;
-  padding:12px 14px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(0,0,0,.30);
-  color:var(--text);
-  outline:none;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  transition:border-color .25s ease, box-shadow .25s ease, background .25s ease;
-}
-
-#searchInput::placeholder{
-  color:rgba(184,184,198,.75);
-}
-
-#searchInput:focus{
-  border-color:rgba(10,132,255,.55);
-  box-shadow:0 0 0 4px rgba(10,132,255,.12);
-  background:rgba(0,0,0,.42);
-}
-
-@media(max-width:700px){
-  .header{flex-wrap:wrap}
-  .header-search{width:100%;min-width:0;max-width:none}
-}
-
-/* Prueba social */
-.proof{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-}
-
-.proof-title{
-  font-weight:700;
-  font-size:16px;
-  letter-spacing:-0.01em;
-}
-
-.proof-text{
-  color:var(--muted);
-  font-size:13px;
-}
-
-.proof-btn{
-  padding:12px 18px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.15);
-  color:#fff;
-  text-decoration:none;
-  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
-  transition:transform .2s ease, border-color .2s ease, background .2s ease;
-}
-
-.proof-btn:hover{
-  transform:translateY(-2px);
-  border-color:rgba(255,255,255,.35);
-  background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
-}
-
-@media(max-width:700px){
-  .proof{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-}
-
-/* Fade in */
-.fade{
-  opacity:0;
-  transform:translateY(14px);
-  transition:opacity .6s ease, transform .6s ease;
-}
-
-.fade.show{
-  opacity:1;
-  transform:none;
-}
-
-/* Distribuidor */
-#distBox{
-  display:grid !important;
-  grid-template-columns:1fr 240px !important;
-  gap:24px !important;
-  align-items:start !important;
-}
-
-#distBox .dist-right{
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-}
-
-#distBox .dist-right img{
-  width:220px;
-  max-width:100%;
-  height:auto;
-  opacity:.95;
-  filter:drop-shadow(0 0 25px rgba(181,23,255,.35));
-  animation:floatAkaza 4s ease-in-out infinite;
-}
-
-@media(max-width:800px){
-  #distBox{
-    grid-template-columns:1fr !important;
-  }
-  #distBox .dist-right{
-    justify-content:flex-start;
-  }
-  #distBox .dist-right img{
-    width:180px;
-  }
-}
-
-@keyframes floatAkaza{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-}
-
-/* Canal WhatsApp */
-#canalBox{
-  border:1px solid rgba(37,211,102,.25);
-  box-shadow:0 0 25px rgba(37,211,102,.10), inset 0 0 30px rgba(181,23,255,.05);
-}
-
-.canal-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:14px;
-  margin-bottom:10px;
-}
-
-.canal-sub{
-  color:var(--muted);
-  font-size:13px;
-}
-
-.canal-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:12px 16px;
-  border-radius:16px;
-  font-weight:800;
-  text-decoration:none;
-  color:#fff;
-  border:1px solid rgba(37,211,102,.35);
-  background:linear-gradient(135deg, rgba(37,211,102,.92), rgba(18,140,126,.92));
-  box-shadow:0 0 18px rgba(37,211,102,.35);
-  transition:transform .15s ease, box-shadow .15s ease;
-}
-
-.canal-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 28px rgba(37,211,102,.55);
-}
-
-@media(max-width:700px){
-  .canal-head{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-}
 </style>
 </head>
 
 <body>
-<div class="bg-motion"></div>
 
 <div class="wrap">
-
-<header class="header">
-  <img src="assets/logo.png" alt="AKAZA Logo" class="header-logo">
-
-  <div class="header-text">
-    <h1 id="businessName">AKAZA SERVICIOS</h1>
-    <div class="subtitle">Streaming • IA • Software</div>
-  </div>
-
-  <div class="header-search">
-    <input id="searchInput" type="search" placeholder="Buscar (Netflix, Disney…)" />
-  </div>
+<header>
+<h1>AKAZA SERVICIOS</h1>
+<p style="color:var(--muted)">Streaming • IA • Software</p>
 </header>
 
-<!-- INFO IMPORTANTE -->
-<div class="section" id="infoBox" style="display:none">
-  <h2>INFORMACIÓN IMPORTANTE</h2>
-  <ul id="infoList"></ul>
+<div class="grid">
+
+<!-- EJEMPLO CARD -->
+<div class="card">
+  <h3>Netflix</h3>
+  <p class="price">S/10</p>
+  <button class="wa">Pedir por WhatsApp</button>
 </div>
 
-<!-- PRUEBA SOCIAL -->
-<div class="section proof">
-  <div class="proof-left">
-    <div class="proof-title">Clientes reales • Pruebas</div>
-    <div class="proof-text">
-      Mira nuestras entregas y comprobantes en Instagram
-    </div>
-  </div>
-
-  <a
-    class="proof-btn"
-    href="https://instagram.com/akaza.srv"
-    target="_blank"
-    rel="noopener"
-  >
-    Ver historias destacadas →
-  </a>
+</div>
 </div>
 
-<div class="tabs" id="tabs"></div>
-<div class="grid" id="grid"></div>
-
-<!-- CANAL WHATSAPP -->
-<div class="section" id="canalBox" style="display:none">
-  <div class="canal-head">
-    <div>
-      <h2 style="margin:0 0 6px">📢 Canal exclusivo para clientes</h2>
-      <div class="canal-sub">Sorteos, promos y avisos importantes</div>
-    </div>
-
-    <a class="canal-btn" id="canalBtn" href="#" target="_blank" rel="noopener">
-      📲 Unirme al canal
-    </a>
-  </div>
-
-  <ul id="canalList"></ul>
-</div>
-
-<!-- DISTRIBUIDORES -->
-<div class="section dist" id="distBox" style="display:none">
-  <div class="dist-left">
-    <h2>¿Quieres ser distribuidor?</h2>
-    <ul id="distList"></ul>
-  </div>
-
-  <div class="dist-right">
-    <img src="assets/akazaxd.png" alt="Distribuidor AKAZA">
-  </div>
-</div>
-
-<div class="float-wa" id="floatWA">✆</div>
-
+<!-- SCRIPT MOVIMIENTO REAL -->
 <script>
-const EMOJI={Streaming:"🎬",IA:"🤖",Software:"💻"};
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
 
-function normalize(s){
-  return String(s||"").toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-    .replace(/\+/g,"")
-    .replace(/[^a-z0-9]+/g,"-")
-    .replace(/(^-|-$)/g,"");
-}
+  document.body.style.backgroundPosition =
+    `0 ${scrollY * 0.08}px,
+     0 ${scrollY * 0.04}px,
+     0 ${scrollY * 0.12}px,
+     0 0`;
 
-function wa(num,msg){
-  return "https://wa.me/"+num+"?text="+encodeURIComponent(msg);
-}
-
-async function loadData(){
-  const r=await fetch("./data.json",{cache:"no-store"});
-  return await r.json();
-}
-
-/* ================= LOGOS ================= */
-
-function localCandidates(service){
-  const s=(service||"").toLowerCase();
-
-  if(s.includes("netflix")) return ["assets/netflix.png"];
-  if(s.includes("prime")) return ["assets/primevideo.png"];
-  if(s.includes("hbo")) return ["assets/hbo.png"];
-  if(s.includes("disney")) return ["assets/disney.png"];
-  if(s.includes("crunchyroll")) return ["assets/crunchyroll.png"];
-  if(s.includes("paramount")) return ["assets/paramount.png"];
-  if(s.includes("spotify")) return ["assets/spotify.png"];
-  if(s.includes("apple tv")) return ["assets/apple-tv-plus.png"];
-  if(s.includes("vix")) return ["assets/vix-premium.png"];
-  if(s.includes("iptv")) return ["assets/iptv-smarters-pro.png"];
-  if(s.includes("youtube")) return ["assets/youtube.png"];
-  if(s.includes("movistar tv")) return ["assets/movistar.png"];
-  if(s.includes("chatgpt")) return ["assets/gpt.png"];
-  if(s.includes("gemini")) return ["assets/gemini.png"];
-  if(s.includes("canva")) return ["assets/canva.png"];
-  if(s.includes("capcut")) return ["assets/capcut.png"];
-  if(s.includes("office")) return ["assets/office.png"];
-  if(s.includes("windows")) return ["assets/windows.png"];
-  if(s.includes("eset")) return ["assets/eset.png"];
-  if(s.includes("duolingo")) return ["assets/duolingo.png"];
-  if(s.includes("playstation")) return ["assets/playstation.png"];
-
-  return [`assets/${normalize(service)}.png`, `assets/${normalize(service)}.jpg`];
-}
-
-function renderLogo(box, service, category){
-  const tries=[
-    ...localCandidates(service),
-    `https://cdn.simpleicons.org/${normalize(service)}/ffffff`
-  ];
-
-  const img=document.createElement("img");
-  let i=0;
-
-  const tryNext=()=>{
-    if(i>=tries.length){
-      box.textContent=EMOJI[category]||"✨";
-      return;
-    }
-    const src=tries[i];
-    img.src=src+(src.includes("?")?"&":"?")+"v="+Date.now();
-    i++;
-  };
-
-  img.onerror=tryNext;
-  box.appendChild(img);
-  tryNext();
-}
-
-/* ================= SECCIONES ================= */
-
-function renderSections(data){
-  if(data.sections?.info_importante?.length){
-    infoBox.style.display="block";
-    infoList.innerHTML="";
-    data.sections.info_importante.forEach(t=>{
-      const li=document.createElement("li");
-      li.textContent=t;
-      infoList.appendChild(li);
-    });
-  }
-
-  if(data.sections?.distribuidor?.length){
-    distBox.style.display="block";
-    distList.innerHTML="";
-    data.sections.distribuidor.forEach(t=>{
-      const li=document.createElement("li");
-      li.textContent=t;
-      distList.appendChild(li);
-    });
-  }
-
-  if(Array.isArray(data.whatsapp_channel_items) && data.whatsapp_channel_items.length){
-    const box=document.getElementById("canalBox");
-    const ul=document.getElementById("canalList");
-    const btn=document.getElementById("canalBtn");
-
-    ul.innerHTML="";
-    data.whatsapp_channel_items.forEach(t=>{
-      const li=document.createElement("li");
-      li.textContent=t;
-      ul.appendChild(li);
-    });
-
-    if(data.whatsapp_channel_url){
-      btn.href=data.whatsapp_channel_url;
-      btn.style.display="inline-flex";
-    }else{
-      btn.style.display="none";
-    }
-
-    box.style.display="block";
-  }
-}
-
-/* ================= CATÁLOGO ================= */
-
-function render(data){
-  businessName.textContent=data.business_name||"Catálogo";
-  const cats=["Todos", ...new Set(data.catalog.map(i=>i.category))];
-  let active="Todos";
-  let q="";
-
-  const searchInput=document.getElementById("searchInput");
-  if(searchInput){
-    searchInput.addEventListener("input", (e)=>{
-      q=(e.target.value || "").toLowerCase().trim();
-      drawGrid();
-    });
-  }
-
-  function drawTabs(){
-    tabs.innerHTML="";
-    cats.forEach(c=>{
-      const b=document.createElement("div");
-      b.className="tab"+(c===active ? " active" : "");
-      b.textContent=c;
-      b.onclick=()=>{
-        active=c;
-        drawTabs();
-        drawGrid();
-      };
-      tabs.appendChild(b);
-    });
-  }
-
-  function drawGrid(){
-    grid.innerHTML="";
-    data.catalog
-      .filter(i=>{
-        const okCat=(active==="Todos" || i.category===active);
-        const okQ=(!q || (i.service||"").toLowerCase().includes(q));
-        return okCat && okQ;
-      })
-      .forEach(item=>{
-        const card=document.createElement("div");
-        card.className="card";
-
-        const box=document.createElement("div");
-        box.className="logo-box";
-        renderLogo(box,item.service,item.category);
-        card.appendChild(box);
-
-        const n=document.createElement("div");
-        n.className="service-name";
-        n.textContent=item.service;
-        card.appendChild(n);
-
-        item.plans.forEach(p=>{
-          const row=document.createElement("div");
-          row.className="plan";
-          row.innerHTML=`<div>${p.name}</div><div class="price">${data.currency}${p.price}</div>`;
-          row.onclick=()=>window.open(
-            wa(data.whatsapp_number, `Hola, quiero ${item.service} - ${p.name} (${data.currency}${p.price})`)
-          );
-          card.appendChild(row);
-        });
-
-        const w=document.createElement("button");
-        w.className="wa";
-        w.textContent="Pedir por WhatsApp";
-        w.onclick=()=>window.open(
-          wa(data.whatsapp_number, `Hola, quiero información de ${item.service}`)
-        );
-        card.appendChild(w);
-
-        grid.appendChild(card);
-      });
-
-    requestAnimationFrame(initFadeIn);
-  }
-
-  drawTabs();
-  drawGrid();
-
-  floatWA.onclick=()=>window.open(
-    wa(data.whatsapp_number, "Hola, quiero hacer un pedido")
+  document.documentElement.style.setProperty(
+    '--bg-shift',
+    `${scrollY * 0.06}px`
   );
-}
-
-function initFadeIn(){
-  const els=document.querySelectorAll(".section, header, .card");
-  els.forEach(el=>{
-    if(!el.classList.contains("fade")){
-      el.classList.add("fade");
-    }
-  });
-
-  const io=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add("show");
-        io.unobserve(e.target);
-      }
-    });
-  },{ threshold:0.15 });
-
-  els.forEach(el=>{
-    if(!el.classList.contains("show")){
-      io.observe(el);
-    }
-  });
-}
-
-window.addEventListener("scroll", ()=>{
-  const scrollY=window.scrollY;
-  const bg=document.querySelector(".bg-motion");
-  if(bg){
-    bg.style.transform=`translateY(${scrollY * 0.12}px)`;
-  }
-});
-
-loadData().then(data=>{
-  renderSections(data);
-  render(data);
-  initFadeIn();
-}).catch(err=>{
-  console.error(err);
-  const grid=document.getElementById("grid");
-  const tabs=document.getElementById("tabs");
-  if(tabs) tabs.innerHTML="";
-  if(grid){
-    grid.innerHTML=`
-      <div style="grid-column:1/-1;padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:14px;background:#00000055">
-        <b>No se pudo cargar el catálogo.</b><br>
-        Revisa que exista <b>data.json</b> en la misma carpeta del <b>index.html</b> y que tenga <b>"catalog"</b>.<br><br>
-        <span style="opacity:.8">${err.message}</span>
-      </div>
-    `;
-  }
 });
 </script>
+
 </body>
 </html>
