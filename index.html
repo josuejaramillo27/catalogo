@@ -314,6 +314,16 @@ header > *{
   box-shadow:0 10px 25px rgba(0,0,0,.35);
   z-index:30;
   transition:transform .25s ease, box-shadow .25s ease;
+  box-shadow:
+  0 10px 25px rgba(0,0,0,.4),
+  0 0 15px rgba(37,211,102,.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+  100%{transform:scale(1)}
 }
 
 .float-wa:hover{
@@ -602,7 +612,9 @@ header > *{
   </div>
 </div>
 
-<div class="float-wa" id="floatWA">✆</div>
+<div class="float-wa" id="floatWA">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+</div>
 
 <script>
 const EMOJI={Streaming:"🎬",IA:"🤖",Software:"💻"};
