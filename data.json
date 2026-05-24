@@ -42,7 +42,7 @@
       "service": "Prime Video",
       "category": "Streaming",
       "plans": [
-        { "name": "Perfil personal (1 mes)", "price": 10 }
+        { "name": "Perfil personal (1 mes)", "price": 9 }
       ]
     },
     {
@@ -57,7 +57,7 @@
       "service": "Disney+ Premium",
       "category": "Streaming",
       "plans": [
-        { "name": "Perfil personal (1 mes)", "price": 10 }
+        { "name": "Perfil personal (1 mes)", "price": 11 }
       ]
     },
     {
@@ -71,7 +71,7 @@
       "service": "Paramount+",
       "category": "Streaming",
       "plans": [
-        { "name": "Perfil personal (1 mes)", "price": 9 }
+        { "name": "Perfil personal (1 mes)", "price": 8 }
       ]
     },
     {
